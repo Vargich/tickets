@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашения на свадьбу — Егор и Елизавета</title>
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Базовые стили и переменные */
+        :root {
+            --color-wine: #722F37;        /* Основной винный цвет */
+            --color-cream: #fbfaf7;       /* Светлый кремовый оттенок */
+            --color-dark: #3d3630;        /* Темный текст */
+            --color-gray: #7d7268;        /* Вспомогательный серый */
+            --bg-page: #eae5de;           /* Фоновый цвет презентации */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column; /* Отображение в столбик */
+            align-items: center;
+            min-height: 100vh;
+            padding: 50px 20px;
+            color: var(--color-dark);
+            gap: 70px; /* Отступ между каждым комплектом */
+        }
+
+        /* Обертка для одного комплекта пригласительного */
+        .invitation-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 860px; 
+            
+        }
+
+        /* Номер пригласительного над карточками */
+        .invitation-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-wine);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--color-wine);
+            padding-bottom: 8px;
+            width: fit-content;
+            text-align: center;
+        }
+
+        /* Контейнер для двух сторон */
+        .invitation-container {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        /* Стили сторон карточки */
+        .card {
+            width: 390px;
+            height: 560px; /* Фиксированная высота для точного совпадения */
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* Левая сторона (Лицевая - Винная) */
+        .card-left {
+            background-color: var(--color-wine);
+            color: #ffffff;
+            padding: 25px 30px; /* Уменьшенные паддинги для большего фото */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Центрированная дата сверху */
+        .centered-header {
+            text-align: center;
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        /* Максимально увеличенная арка-рамка для фотографии */
+        .photo-frame {
+            position: relative;
+            width: 330px; /* Увеличено с 300px */
+            height: 400px; /* Увеличено с 365px */
+            margin: 5px auto;
+            border-radius: 165px 165px 0 0; /* Идеальное скругление при ширине 330px */
+            overflow: visible;
+        }
+
+        .couple-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 165px 165px 0 0;
+            filter: grayscale(100%) contrast(1.1) brightness(0.9);
+        }
+
+        /* Наложение имен */
+        .overlapping-names {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            width: 130%;
+            text-align: center;
+            font-family: 'Marck Script', cursive;
+            font-size: 48px; /* Увеличено с 44px */
+            color: #ffffff;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            line-height: 1.2;
+        }
+
+        /* Центрированная подпись внизу */
+        .centered-footer {
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 3px;
+            line-height: 1.7;
+            text-transform: uppercase;
+        }
+
+        .centered-footer span {
+            display: block;
+            opacity: 0.9;
+        }
+
+
+        /* Правая сторона (Оборотная - Светлая) */
+        .card-right {
+            background-color: var(--color-cream);
+            color: var(--color-dark);
+            padding: 45px 35px 35px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .intro-text {
+            font-size: 10px;
+            letter-spacing: 3px;
+            line-height: 1.7;
+            text-align: center;
+            text-transform: uppercase;
+            color: var(--color-gray);
+        }
+
+        /* Место для имени приглашаемого */
+        .guest-name-area {
+            width: 85%;
+            height: 40px;
+            margin: 15px auto 5px auto;
+            /* border-bottom: 1px dashed rgba(114, 47, 55, 0.25); Пунктир винного цвета */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Marck Script', cursive;
+            font-size: 22px;
+            color: var(--color-wine);
+            padding-bottom: 2px;
+        }
+
+        /* Основной контент карточки */
+        .main-content {
+            display: flex;
+            width: 100%;
+            gap: 25px;
+            align-items: stretch;
+            margin: 15px 0;
+        }
+
+        /* Вертикальная дата */
+        .date-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(114, 47, 55, 0.2);
+            padding-right: 20px;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .date-vertical span {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--color-wine);
+            letter-spacing: 1px;
+        }
+
+        /* Секция с описанием событий */
+        .details-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .names-script {
+            font-family: 'Marck Script', cursive;
+            font-size: 36px;
+            color: var(--color-wine);
+            margin-bottom: 25px;
+            font-weight: 400;
+            transform: rotate(-2deg);
+            display: inline-block;
+        }
+
+        .event-block h3 {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--color-wine);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .event-block p {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            line-height: 1.6;
+            color: var(--color-dark);
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .event-block .time {
+            font-size: 11px;
+            font-weight: 500;
+            margin-top: 8px;
+            color: var(--color-gray);
+        }
+
+        /* Место под QR-код */
+        .qr-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            /* border-top: 1px dashed rgba(125, 114, 104, 0.25); */
+            padding-top: 25px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .qr-box {
+            width: 68px;
+            height: 68px;
+            border: 1px solid rgba(114, 47, 55, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-cream); 
+            padding: 4px;
+        }
+
+        .qr-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-text {
+            text-align: left;
+        }
+
+        .qr-text span:first-child {
+            display: block;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--color-wine);
+            margin-bottom: 3px;
+        }
+
+        .qr-text span:last-child {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--color-gray);
+        }
+
+        /* Адаптивность для экранов мобильных */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+                gap: 50px;
+            }
+            .invitation-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .card {
+                width: 100%;
+                max-width: 390px;
+            }
+        }
+
+        /* Стили для вывода на печать */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+                margin: 0;
+            }
+            .invitation-wrapper {
+                page-break-after: always; /* Каждый комплект печатается на отдельном листе */
+                box-shadow: none;
+            }
+            .invitation-label {
+                display: none; /* Скрывать порядковый номер при итоговой печати */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Контейнер, куда JavaScript автоматически сгенерирует 20 пригласительных -->
+    <div id="all-invitations" style="display: flex; flex-direction: column; gap: 70px; width: 100%; align-items: center;"></div>
+
+    <script>
+        // Функция автоматической генерации 20 пригласительных в столбик
+        const container = document.getElementById('all-invitations');
+        const totalInvitations = 231;
+
+        for (let i = 1; i <= totalInvitations; i++) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'invitation-wrapper';
+            
+            wrapper.innerHTML = `
+                <h2 class="invitation-label">Пригласительное №${i}</h2>
+                <div class="invitation-container">
+                    
+                    <!-- ЛИЦЕВАЯ СТОРОНА -->
+                    <div class="card card-left">
+                        <div class="centered-header">
+                            19 сентября 2026
+                        </div>
+                        
+                        <div class="photo-frame">
+                            <!-- Подстановка локального фото по шаблону "номер.jpeg" -->
+                            <img src="${i}_.jpg" alt="Свадебное фото Егор и Елизавета" class="couple-photo" onerror="this.src='https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=600&auto=format&fit=crop'">
+                            <div class="overlapping-names">Егор и Елизавета</div>
+                        </div>
+                        
+                        <div class="centered-footer">
+                            <span>С любовью,</span>
+                            <span>ваши Егор и Лиза</span>
+                        </div>
+                    </div>
+
+                   
+                    
+                </div>
+            `;
+            container.appendChild(wrapper);
+        }
+    </script>
+
+</body>
+</html>
